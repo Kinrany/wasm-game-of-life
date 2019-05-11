@@ -2,6 +2,7 @@ use wasm_bindgen::prelude::*;
 
 use {
   crate::{cell::Cell, rules::rules},
+  js_sys::Math,
   std::fmt,
 };
 
@@ -31,16 +32,15 @@ impl Universe {
     self.cells[idx] = value;
   }
 
-  pub fn new(width: u32, height: u32) -> Universe {
-    let cells = (0..width * height)
-      .map(|i| {
-        if i % 3 == 0 || i % 7 == 0 {
-          Cell::Alive
-        } else {
-          Cell::Dead
-        }
-      })
-      .collect();
+  pub fn new(width: u32, height: u32, density: f64) -> Universe {
+    // use Math.random() to initialize the cells
+    let len = (width * height) as usize;
+    let mut cells = vec![Cell::Dead; len];
+    for i in 0..len {
+      if Math::random() < density {
+        cells[i] = Cell::Alive;
+      }
+    }
 
     Universe {
       width,
