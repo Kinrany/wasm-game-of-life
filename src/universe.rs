@@ -32,20 +32,24 @@ impl Universe {
     self.cells[idx] = value;
   }
 
-  pub fn new(width: u32, height: u32, density: f64) -> Universe {
-    // use Math.random() to initialize the cells
-    let len = (width * height) as usize;
-    let mut cells = vec![Cell::Dead; len];
-    for i in 0..len {
-      if Math::random() < density {
-        cells[i] = Cell::Alive;
-      }
-    }
+  pub fn new(width: u32, height: u32) -> Universe {
+    let cells = vec![Cell::Dead; (width * height) as usize];
 
     Universe {
       width,
       height,
       cells,
+    }
+  }
+
+  pub fn randomize(&mut self, density: f64) {
+    // use Math.random() to initialize the cells
+    let len = (self.width * self.height) as usize;
+    for i in 0..len {
+      self.cells[i] = match Math::random() {
+        x if x < density => Cell::Alive,
+        _x => Cell::Dead,
+      }
     }
   }
 
