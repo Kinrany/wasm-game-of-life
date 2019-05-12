@@ -1,4 +1,4 @@
-import { Universe, Cell } from "wasm-game-of-life";
+import { Universe, Cell, set_panic_hook } from "wasm-game-of-life";
 import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
 
 const UNIVERSE_WIDTH = 64;
@@ -12,6 +12,8 @@ const CELL_OFFSET = CELL_SIZE + BORDER_SIZE; // px
 const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
+
+set_panic_hook();
 
 const universe = Universe.new(UNIVERSE_WIDTH, UNIVERSE_HEIGHT);
 universe.randomize(UNIVERSE_DENSITY);
