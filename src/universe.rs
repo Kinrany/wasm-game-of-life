@@ -92,6 +92,19 @@ impl Universe {
   }
 }
 
+impl Universe {
+  pub fn get_cells(&self) -> &[Cell] {
+    &self.cells
+  }
+
+  pub fn set_cells(&mut self, cells: &[(u32, u32)], value: Cell) {
+    for (row, col) in cells.iter().cloned() {
+      let idx = self.get_cell_index(row, col);
+      self.cells[idx] = value;
+    }
+  }
+}
+
 impl fmt::Display for Universe {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     for line in self.cells.as_slice().chunks(self.width() as usize) {

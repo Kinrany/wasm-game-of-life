@@ -1,6 +1,6 @@
-mod cell;
+pub mod cell;
 mod rules;
-mod universe;
+pub mod universe;
 mod utils;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
